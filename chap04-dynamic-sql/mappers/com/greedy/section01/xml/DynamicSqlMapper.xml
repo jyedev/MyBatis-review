@@ -114,4 +114,106 @@
 		  </if>
 	</select>
 	
+	<select id="searchMenuByNameOrCategory" parameterType="hashmap" resultMap="menuResultMap">
+		SELECT
+		       MENU_CODE
+		     , MENU_NAME
+		     , MENU_PRICE
+		     , CATEGORY_CODE
+		     , ORDERABLE_STATUS
+		  FROM TBL_MENU
+		  
+<!-- 		<if test="nameValue != null">
+		 WHERE MENU_NAME LIKE '%' || #{ nameValue } || '%'
+		</if>
+		<if test="categoryValue != null">
+		   AND CATEGORY_CODE = #{ categoryValue } 
+		</if> -->
+		
+<!-- 	 		<where>
+			<if test="nameValue != null">
+		 		MENU_NAME LIKE '%' || #{ nameValue } || '%'
+			</if>
+			<if test="categoryValue != null">
+			   AND CATEGORY_CODE = #{ categoryValue } 
+			</if>
+			</where>	 -->
+
+<!-- 	 	    <trim prefix="WHERE" prefixOverrides="AND | OR">
+		 	<if test="nameValue != null">
+		 		MENU_NAME LIKE '%' || #{ nameValue } || '%'
+			</if>
+			<if test="categoryValue != null">
+			   AND CATEGORY_CODE = #{ categoryValue } 
+			</if>
+		    </trim> -->
+		
+<!-- 		 <trim prefix="WHERE" prefixOverrides="AND | OR">
+		 	<bind name="namePattern" value="'%' + _parameter.get('nameValue') + '%'"/>
+		 
+		 	<if test="nameValue != null">
+		 		MENU_NAME LIKE #{ namePattern }
+			</if>
+			<if test="categoryValue != null">
+			   AND CATEGORY_CODE = #{ categoryValue } 
+			</if>
+		 </trim>	 -->
+		 
+		 <trim prefix="WHERE" prefixOverrides="AND | OR">
+		 	<bind name="namePattern" value="'%' + _parameter.get('nameValue') + '%'"/>
+		 
+		 	<if test="nameValue != null">
+		 		MENU_NAME LIKE #{ namePattern }
+			</if>
+			<if test="categoryValue != null">
+			   AND CATEGORY_CODE = #{ categoryValue } 
+			</if>
+		 </trim>		 
+	</select>
+	
+	<update id="modifyMenu" parameterType="hashmap">
+<!-- 		UPDATE
+		       TBL_MENU
+		<if test="name != null and name != ''">
+	       SET MENU_NAME = #{ name }
+		</if>
+		<if test="categoryCode != null and categoryCode gt 0">
+		     , CATEGORY_CODE = #{ categoryCode }
+		</if>
+		<if test="orderableStatus != null and orderableStatus != ''">
+		     , ORDERABLE_STATUS = #{ orderableStatus }
+		</if>
+		 WHERE MENU_CODE = #{ code } -->
+		 
+<!--  		UPDATE
+		       TBL_MENU
+		<set>
+		<if test="name != null and name != ''">
+	        MENU_NAME = #{ name }
+		</if>
+		<if test="categoryCode != null and categoryCode gt 0">
+		     , CATEGORY_CODE = #{ categoryCode }
+		</if>
+		<if test="orderableStatus != null and orderableStatus != ''">
+		     , ORDERABLE_STATUS = #{ orderableStatus }
+		</if>
+		</set>
+		 WHERE MENU_CODE = #{ code }	 --> 
+		 
+		UPDATE
+		       TBL_MENU
+		<trim prefix="SET" prefixOverrides=",">
+		<if test="name != null and name != ''">
+	        MENU_NAME = #{ name } 
+		</if>
+		<if test="categoryCode != null and categoryCode gt 0">
+		     , CATEGORY_CODE = #{ categoryCode } 
+		</if>
+		<if test="orderableStatus != null and orderableStatus != ''">
+		     , ORDERABLE_STATUS = #{ orderableStatus }
+		</if>
+		</trim>
+		 WHERE MENU_CODE = #{ code }
+	</update>
+	
 </mapper>

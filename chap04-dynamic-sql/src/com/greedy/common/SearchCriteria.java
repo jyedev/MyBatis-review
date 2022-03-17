@@ -5,15 +5,14 @@ public class SearchCriteria {
 	private String condition;
 	private String value;
 	
+	public SearchCriteria() {}
+	
 	public SearchCriteria(String condition, String value) {
 		super();
 		this.condition = condition;
 		this.value = value;
 	}
 
-	public SearchCriteria() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public String getCondition() {
 		return condition;

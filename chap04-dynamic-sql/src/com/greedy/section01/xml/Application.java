@@ -158,7 +158,7 @@ public class Application {
 			switch(no) {
 			case 1 : menuService.searchMenuByCodeOrSearchAll(inputAllOrOne()); break;
 			case 2 : menuService.searchMenuByNameOrCategory(inputSearchCriteriaMap()); break;
-			case 3 : ; break;
+			case 3 : menuService.modifyMenu(inputChangeInfo()); break;
 			case 9 : return;
 			}
 		} while(true);
@@ -211,6 +211,30 @@ public class Application {
 			criteria.put("categoryValue", categoryValue);
 		}
 		return criteria;
+	}
+	
+	private static Map<String, Object> inputChangeInfo() {
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.print("변경할 메뉴 코드를 입력하세요 : ");
+		int code = sc.nextInt();
+		System.out.print("변경할 메뉴 이름을 입력하세요 : ");
+		sc.nextLine();
+		String name = sc.nextLine();
+		System.out.print("변경할 카테고리 코드를 입력하세요 : ");
+		int categoryCode = sc.nextInt();
+		System.out.print("판매 여부를 결정해주세요(Y/N) : ");
+		sc.nextLine();
+		String orderableStatus = sc.nextLine();
+		
+		Map<String, Object> criteria = new HashMap<>();
+		criteria.put("code", code);
+		criteria.put("name", name);
+		criteria.put("categoryCode", categoryCode);
+		criteria.put("orderableStatus", orderableStatus);
+		
+		return criteria;
+		
 	}
 
 }
